@@ -1,0 +1,4 @@
+{
+  "admin": { "email": "admin@teste.com", "senha": "123456" },
+  "invalido": { "email": "admin@teste.com", "senha": "errada" }
+}
