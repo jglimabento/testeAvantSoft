@@ -13,13 +13,7 @@ Cypress.Commands.add('login', (usuario = 'admin') => {
 })
 
 Cypress.Commands.add('alugarCarro', (dias, metodoPagamento = 'pix') => {
-  const paymentOptions = {
-    pix: 'PIX',
-    cartao: 'Cartão',
-  }
-  const paymentLabel = paymentOptions[metodoPagamento]
-
-  if (!paymentLabel) {
+  if (!['pix', 'cartao'].includes(metodoPagamento)) {
     throw new Error(`Unsupported payment method: ${metodoPagamento}`)
   }
 
@@ -39,6 +33,12 @@ Cypress.Commands.add('alugarCarro', (dias, metodoPagamento = 'pix') => {
     .click()
 
   cy.contains('h2', 'Pagamento', { timeout: 10000 }).should('be.visible')
-  cy.contains('button', paymentLabel, { timeout: 5000 }).should('be.visible').click()
+
+  if (metodoPagamento === 'pix') {
+    cy.contains('button', 'PIX', { timeout: 5000 }).should('be.visible').click()
+  } else {
+    cy.get('input[value="cartao"]').should('be.visible').click()
+  }
+
   cy.contains('button', 'Confirmar Pagamento').should('be.visible').click()
 })
