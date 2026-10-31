@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Cypress generated artifacts
+cypress/videos/
+cypress/screenshots/
+
+# Environment and local files
+.env
+.env.*
+!.env.example
+.DS_Store
